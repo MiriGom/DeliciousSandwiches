@@ -48,7 +48,7 @@ public class UserInterface {
                     orderChip();
                     break;
                 case "D":
-                    //checkout();
+                    checkout();
                     break;
                 case "X":
                     isRunning = false;
@@ -71,6 +71,15 @@ public class UserInterface {
         String userInput = scan.nextLine();
         if (userInput.equalsIgnoreCase("yes")) {
             pos.addItemToOrder(item);
+        }
+    }
+    public void checkout(){
+        pos.displayOrder();
+        System.out.println("would you like to complete your order and print receipt? Type yes/no.");
+        String userInput = scan.nextLine();
+        if (userInput.equalsIgnoreCase("yes")) {
+            pos.printReceipt();
+            System.out.println("Receipt printed! Have a wonderful day!");
         }
     }
 }
