@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.awt.desktop.SystemEventListener;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -42,7 +43,7 @@ public class UserInterface {
                     // customizeSandwich();
                     break;
                 case "B":
-                    // orderDrink();
+                     orderDrink();
                     break;
                 case "C":
                     orderChip();
@@ -80,6 +81,33 @@ public class UserInterface {
         if (userInput.equalsIgnoreCase("yes")) {
             pos.printReceipt();
             System.out.println("Receipt printed! Have a wonderful day!");
+        }
+    }
+    public void orderDrink(){
+        Drinks drinks = new Drinks("");
+        System.out.println("Please select a drink");
+        deliStore.displayDrinks();
+        int userInput = scan.nextInt();
+        scan.nextLine();
+        System.out.println("What size drink would you like?");
+        displaySize();
+        int userSizeInput = scan.nextInt();
+        scan.nextLine();
+        if (DeliStore.availableDrinks.containsKey(userInput)) {
+            Drinks selectedDrink = DeliStore.availableDrinks.get(userInput);
+            if (userSizeInput == Size.SMALL.ordinal() + 1) {
+                selectedDrink.setSize(Size.SMALL);
+            } else if (userSizeInput == Size.MEDIUM.ordinal() + 1) {
+                selectedDrink.setSize(Size.MEDIUM);
+            }else if (userSizeInput == Size.LARGE.ordinal() + 1) {
+                selectedDrink.setSize(Size.LARGE);
+            }
+            confirmAdd(selectedDrink);
+        }
+    }
+    public void displaySize(){
+        for(Size size: Size.values()) {
+            System.out.println((size.ordinal() + 1) + ") " + size);
         }
     }
 }
