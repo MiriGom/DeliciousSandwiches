@@ -9,11 +9,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class PointOfSales {
+    double totalCost = 0;
     static ArrayList <StoreItem> orderList = new ArrayList<>();
     public void displayOrder(){
         for (StoreItem storeItem: orderList){
+            totalCost += storeItem.getPrice();
             System.out.println(storeItem);
         }
+        System.out.printf("Total Cost: $%.2f%n", totalCost);
     }
     public void addItemToOrder(StoreItem item){
         orderList.add(item);
@@ -30,10 +33,12 @@ public class PointOfSales {
 
             String line;
             for (StoreItem item: orderList){
-                line = String.format(item.toString());
+                totalCost += item.getPrice();
+                line = String.format("%s\n", item);
                 bF.write(line);
             }
-            bF.close();
+            bF.write(String.format("\nTotal Cost: $%.2f", totalCost));
+            bF.flush();
         }catch (IOException e){
             System.out.println("error in printing receipt");
         }
