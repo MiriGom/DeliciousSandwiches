@@ -1,6 +1,7 @@
 package com.pluralsight;
 
 import java.awt.desktop.SystemEventListener;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -40,7 +41,7 @@ public class UserInterface {
             String userInput = scan.nextLine();
             switch (userInput.toUpperCase()) {
                 case "A":
-                    // customizeSandwich();
+                    customizeSandwich();
                     break;
                 case "B":
                      orderDrink();
@@ -109,5 +110,55 @@ public class UserInterface {
         for(Size size: Size.values()) {
             System.out.println((size.ordinal() + 1) + ") " + size);
         }
+    }
+    public void customizeSandwich() {
+        Sandwich sandwich = new Sandwich();
+        System.out.println("What size sandwich would you like?");
+        displaySize();
+        int userSizeInput = scan.nextInt();
+        scan.nextLine();
+            if (userSizeInput == Size.SMALL.ordinal() + 1) {
+                sandwich.setSize(Size.SMALL);
+            } else if (userSizeInput == Size.MEDIUM.ordinal() + 1) {
+                sandwich.setSize(Size.MEDIUM);
+            }else if (userSizeInput == Size.LARGE.ordinal() + 1) {
+                sandwich.setSize(Size.LARGE);
+            }
+        System.out.println("Please select a bread type");
+            deliStore.displayBreads();
+            int userBreadSelection = scan.nextInt();
+            scan.nextLine();
+            if (DeliStore.availableBreads.containsKey(userBreadSelection)) {
+                String selectedBread = DeliStore.availableBreads.get(userBreadSelection);
+                sandwich.setBread(selectedBread);
+            }
+        System.out.println("Please select your choice of meats." +
+                "\nIf you would like more than one type please separate your choices using commas");
+            deliStore.displayMeats();
+            String[] userMeatSelection = scan.nextLine().split(",");
+            ArrayList<Meat> meats = new ArrayList<>();
+            for (String selectionKey: userMeatSelection)
+                if (DeliStore.availableMeats.containsKey(Integer.parseInt(selectionKey))){Meat selectedMeat = DeliStore.availableMeats.get(Integer.parseInt(selectionKey));
+                meats.add(selectedMeat);
+                sandwich.setMeats(meats);
+            }
+            System.out.println("would you like extra meat?");
+            String extraMeat = scan.nextLine();
+            if (extraMeat.equalsIgnoreCase("yes")) {
+                sandwich.isExtraMeat(true);
+            }
+            System.out.println("Please select your choice of cheese." +
+                    "\nIf you would like more than one type please separate your choices using commas");
+            deliStore.displayCheese();
+            String [] userCheeseSelection = scan.nextLine().split(",");
+            ArrayList<Cheese> cheeseList = new ArrayList<>();
+            for (String selectionKey: userCheeseSelection) {
+                if (DeliStore.availableCheeses.containsKey(Integer.parseInt(selectionKey))){
+                    Cheese selectedCheese = DeliStore.availableCheeses.get(Integer.parseInt(selectionKey));
+                        cheeseList.add(selectedCheese);
+                        sandwich.setCheeseList(cheeseList);
+                    }
+                }
+
     }
 }

@@ -38,7 +38,24 @@ public class DeliStore {
         availableCheeses.put(3, new Cheese("CHEDDAR"));
         availableCheeses.put(4, new Cheese("SWISS"));
 
-        availableToppings.put(1, )
+        availableToppings.put(1, "PEPPERS");
+        availableToppings.put(2, "ONIONS");
+        availableToppings.put(3, "TOMATOES");
+        availableToppings.put(4, "JALEPENOS");
+        availableToppings.put(5, "CUCUMBERS");
+        availableToppings.put(6, "PICKLES");
+        availableToppings.put(7, "GUACAMOLE");
+        availableToppings.put(8, "MUSHROOMS");
+
+        availableSides.put(1, "AU JUS");
+        availableSides.put(2, "SALAD");
+
+        availableSauce.put(1, "MAYO");
+        availableSauce.put(2, "KETCHUP");
+        availableSauce.put(3, "MUSTARD");
+        availableSauce.put(4, "RANCH");
+        availableSauce.put(5, "THOUSAND ISLANDS");
+        availableSauce.put(6, "VINAIGRETTE");
     }
 
     public void displayChips(){
@@ -51,6 +68,24 @@ public class DeliStore {
         for(int i = 1; i <= availableDrinks.size(); i++) {
             Drinks drink = availableDrinks.get(i);
             System.out.println(i + ") " + drink.name);
+        }
+    }
+    public void displayBreads() {
+        for( int i = 1; i <= availableBreads.size(); i++) {
+           String bread = availableBreads.get(i);
+           System.out.println(i + ") " + bread);
+        }
+    }
+    public void displayMeats(){
+        for (int i = 1; i <= availableMeats.size(); i++) {
+            Meat meat = availableMeats.get(i);
+            System.out.println(i + ") " + meat);
+        }
+    }
+    public void displayCheese(){
+        for(int i = 1; i <= availableCheeses.size(); i++) {
+            Cheese cheese = availableCheeses.get(i);
+            System.out.println(i + ") " + cheese);
         }
     }
 }

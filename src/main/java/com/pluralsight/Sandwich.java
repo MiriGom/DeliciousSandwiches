@@ -49,11 +49,16 @@ public class Sandwich extends StoreItem{
         isToasted = toasted;
     }
 
-    public void setExtraMeat(boolean extraMeat) {
+    public void isExtraMeat(boolean extraMeat) {
         this.extraMeat = extraMeat;
     }
 
     public void setExtraCheese(boolean extraCheese) {
         this.extraCheese = extraCheese;
+    }
+
+    @Override
+    public double getPrice() {
+        return 0;
     }
 }
