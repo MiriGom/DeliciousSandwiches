@@ -8,6 +8,7 @@ public class UserInterface {
     static PointOfSales pos = new PointOfSales();
     static DeliStore deliStore = new DeliStore();
     static Scanner scan = new Scanner(System.in);
+
     public void getHomePage() {
         System.out.println("""
                 ===============================
@@ -26,6 +27,7 @@ public class UserInterface {
         }
 
     }
+
     public void orderPrompt() {
         boolean isRunning = true;
         while (isRunning) {
@@ -44,7 +46,7 @@ public class UserInterface {
                     customizeSandwich();
                     break;
                 case "B":
-                     orderDrink();
+                    orderDrink();
                     break;
                 case "C":
                     orderChip();
@@ -53,11 +55,13 @@ public class UserInterface {
                     checkout();
                     break;
                 case "X":
+                    pos.cancelOrder();
                     isRunning = false;
             }
         }
     }
-    public void orderChip(){
+
+    public void orderChip() {
         System.out.println("Please select a bag of chips");
         deliStore.displayChips();
         int userInput = scan.nextInt();
@@ -68,14 +72,16 @@ public class UserInterface {
         }
 
     }
-    public void confirmAdd(StoreItem item){
+
+    public void confirmAdd(StoreItem item) {
         System.out.println("would you like to add " + item.toString() + " to your order? type out yes/no");
         String userInput = scan.nextLine();
         if (userInput.equalsIgnoreCase("yes")) {
             pos.addItemToOrder(item);
         }
     }
-    public void checkout(){
+
+    public void checkout() {
         pos.displayOrder();
         System.out.println("would you like to complete your order and print receipt? Type yes/no.");
         String userInput = scan.nextLine();
@@ -84,7 +90,8 @@ public class UserInterface {
             System.out.println("Receipt printed! Have a wonderful day!");
         }
     }
-    public void orderDrink(){
+
+    public void orderDrink() {
         Drinks drinks = new Drinks("");
         System.out.println("Please select a drink");
         deliStore.displayDrinks();
@@ -100,65 +107,111 @@ public class UserInterface {
                 selectedDrink.setSize(Size.SMALL);
             } else if (userSizeInput == Size.MEDIUM.ordinal() + 1) {
                 selectedDrink.setSize(Size.MEDIUM);
-            }else if (userSizeInput == Size.LARGE.ordinal() + 1) {
+            } else if (userSizeInput == Size.LARGE.ordinal() + 1) {
                 selectedDrink.setSize(Size.LARGE);
             }
             confirmAdd(selectedDrink);
         }
     }
-    public void displaySize(){
-        for(Size size: Size.values()) {
+
+    public void displaySize() {
+        for (Size size : Size.values()) {
             System.out.println((size.ordinal() + 1) + ") " + size);
         }
     }
+
     public void customizeSandwich() {
         Sandwich sandwich = new Sandwich();
         System.out.println("What size sandwich would you like?");
         displaySize();
         int userSizeInput = scan.nextInt();
         scan.nextLine();
-            if (userSizeInput == Size.SMALL.ordinal() + 1) {
-                sandwich.setSize(Size.SMALL);
-            } else if (userSizeInput == Size.MEDIUM.ordinal() + 1) {
-                sandwich.setSize(Size.MEDIUM);
-            }else if (userSizeInput == Size.LARGE.ordinal() + 1) {
-                sandwich.setSize(Size.LARGE);
-            }
+        if (userSizeInput == Size.SMALL.ordinal() + 1) {
+            sandwich.setSize(Size.SMALL);
+        } else if (userSizeInput == Size.MEDIUM.ordinal() + 1) {
+            sandwich.setSize(Size.MEDIUM);
+        } else if (userSizeInput == Size.LARGE.ordinal() + 1) {
+            sandwich.setSize(Size.LARGE);
+        }
         System.out.println("Please select a bread type");
-            deliStore.displayBreads();
-            int userBreadSelection = scan.nextInt();
-            scan.nextLine();
-            if (DeliStore.availableBreads.containsKey(userBreadSelection)) {
-                String selectedBread = DeliStore.availableBreads.get(userBreadSelection);
-                sandwich.setBread(selectedBread);
-            }
+        deliStore.displayBreads();
+        int userBreadSelection = scan.nextInt();
+        scan.nextLine();
+        if (DeliStore.availableBreads.containsKey(userBreadSelection)) {
+            String selectedBread = DeliStore.availableBreads.get(userBreadSelection);
+            sandwich.setBread(selectedBread);
+        }
         System.out.println("Please select your choice of meats." +
                 "\nIf you would like more than one type please separate your choices using commas");
-            deliStore.displayMeats();
-            String[] userMeatSelection = scan.nextLine().split(",");
-            ArrayList<Meat> meats = new ArrayList<>();
-            for (String selectionKey: userMeatSelection)
-                if (DeliStore.availableMeats.containsKey(Integer.parseInt(selectionKey))){Meat selectedMeat = DeliStore.availableMeats.get(Integer.parseInt(selectionKey));
+        deliStore.displayMeats();
+        String[] userMeatSelection = scan.nextLine().split(",");
+        ArrayList<Meat> meats = new ArrayList<>();
+        for (String selectionKey : userMeatSelection)
+            if (DeliStore.availableMeats.containsKey(Integer.parseInt(selectionKey))) {
+                Meat selectedMeat = DeliStore.availableMeats.get(Integer.parseInt(selectionKey));
                 meats.add(selectedMeat);
                 sandwich.setMeats(meats);
+                selectedMeat.setMeatSize(sandwich.getSize());
             }
-            System.out.println("would you like extra meat?");
-            String extraMeat = scan.nextLine();
-            if (extraMeat.equalsIgnoreCase("yes")) {
-                sandwich.isExtraMeat(true);
+        System.out.println("would you like extra meat?");
+        String extraMeat = scan.nextLine();
+        if (extraMeat.equalsIgnoreCase("yes")) {
+            sandwich.isExtraMeat(true);
+        }
+        System.out.println("Please select your choice of cheese." +
+                "\nIf you would like more than one type please separate your choices using commas");
+        deliStore.displayCheese();
+        String[] userCheeseSelection = scan.nextLine().split(",");
+        ArrayList<Cheese> cheeseList = new ArrayList<>();
+        for (String selectionKey : userCheeseSelection) {
+            if (DeliStore.availableCheeses.containsKey(Integer.parseInt(selectionKey))) {
+                Cheese selectedCheese = DeliStore.availableCheeses.get(Integer.parseInt(selectionKey));
+                cheeseList.add(selectedCheese);
+                sandwich.setCheeseList(cheeseList);
+                selectedCheese.setCheeseSize(sandwich.getSize());
             }
-            System.out.println("Please select your choice of cheese." +
-                    "\nIf you would like more than one type please separate your choices using commas");
-            deliStore.displayCheese();
-            String [] userCheeseSelection = scan.nextLine().split(",");
-            ArrayList<Cheese> cheeseList = new ArrayList<>();
-            for (String selectionKey: userCheeseSelection) {
-                if (DeliStore.availableCheeses.containsKey(Integer.parseInt(selectionKey))){
-                    Cheese selectedCheese = DeliStore.availableCheeses.get(Integer.parseInt(selectionKey));
-                        cheeseList.add(selectedCheese);
-                        sandwich.setCheeseList(cheeseList);
-                    }
-                }
+        }
+        System.out.println("Would you like extra cheese?");
+        String extraCheese = scan.nextLine();
+        if (extraCheese.equalsIgnoreCase("yes")) {
+            sandwich.setExtraCheese(true);
+        }
+        System.out.println("Please select your choice of topping. Please separate your choices using commas");
+        deliStore.displayToppings();
+        String[] selectedToppings = scan.nextLine().split(",");
+        ArrayList<String> toppingsList = new ArrayList<>();
+        for (String selectionsKey : selectedToppings) {
+            if (DeliStore.availableToppings.containsKey(Integer.parseInt(selectionsKey))) {
+                String userSelection = DeliStore.availableToppings.get(Integer.parseInt(selectionsKey));
+                toppingsList.add(userSelection);
+                sandwich.setToppings(toppingsList);
+            }
+        }
+        System.out.println("please select your choice of sauces. Please separate your choices using commas");
+        deliStore.displaySauce();
+        String[] selectedSauces = scan.nextLine().split(",");
+        ArrayList<String> sauces = new ArrayList<>();
+        for (String selectionKey : selectedSauces) {
+            if (DeliStore.availableSauce.containsKey(Integer.parseInt(selectionKey))) {
+                String userSelectedSauces = DeliStore.availableSauce.get(Integer.parseInt(selectionKey));
+                sauces.add(userSelectedSauces);
+                sandwich.setSauces(sauces);
 
+            }
+        }
+        System.out.println("Please select a side");
+        deliStore.displaySide();
+        int userSideSelection = scan.nextInt();
+        scan.nextLine();
+        if (DeliStore.availableSides.containsKey(userSideSelection)) {
+            String sideChoice = DeliStore.availableSides.get(userSideSelection);
+            sandwich.setSide(sideChoice);
+        }
+        System.out.println("Would you like your sandwich toasted? Please Type out \"yes/no\"");
+        String userInput = scan.nextLine();
+        if (userInput.equalsIgnoreCase("yes")) {
+            sandwich.isToasted = true;
+        }
+        confirmAdd(sandwich);
     }
 }

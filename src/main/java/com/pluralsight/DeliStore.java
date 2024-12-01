@@ -23,7 +23,7 @@ public class DeliStore {
 
         availableBreads.put(1, "WHITE");
         availableBreads.put(2, "WHEAT");
-        availableBreads.put(3,"RYE");
+        availableBreads.put(3, "RYE");
         availableBreads.put(4, "WRAP");
 
         availableMeats.put(1, new Meat("STEAK"));
@@ -48,7 +48,7 @@ public class DeliStore {
         availableToppings.put(8, "MUSHROOMS");
 
         availableSides.put(1, "AU JUS");
-        availableSides.put(2, "SALAD");
+        availableSides.put(2, "SIDE SALAD");
 
         availableSauce.put(1, "MAYO");
         availableSauce.put(2, "KETCHUP");
@@ -58,34 +58,59 @@ public class DeliStore {
         availableSauce.put(6, "VINAIGRETTE");
     }
 
-    public void displayChips(){
+    public void displayChips() {
         for (int i = 1; i <= availableChips.size(); i++) {
             Chips chip = availableChips.get(i);
             System.out.println(i + ") " + chip.name);
         }
     }
-    public void displayDrinks(){
-        for(int i = 1; i <= availableDrinks.size(); i++) {
+
+    public void displayDrinks() {
+        for (int i = 1; i <= availableDrinks.size(); i++) {
             Drinks drink = availableDrinks.get(i);
             System.out.println(i + ") " + drink.name);
         }
     }
+
     public void displayBreads() {
-        for( int i = 1; i <= availableBreads.size(); i++) {
-           String bread = availableBreads.get(i);
-           System.out.println(i + ") " + bread);
+        for (int i = 1; i <= availableBreads.size(); i++) {
+            String bread = availableBreads.get(i);
+            System.out.println(i + ") " + bread);
         }
     }
-    public void displayMeats(){
+
+    public void displayMeats() {
         for (int i = 1; i <= availableMeats.size(); i++) {
             Meat meat = availableMeats.get(i);
-            System.out.println(i + ") " + meat);
+            System.out.println(i + ") " + meat.name);
         }
     }
-    public void displayCheese(){
-        for(int i = 1; i <= availableCheeses.size(); i++) {
+
+    public void displayCheese() {
+        for (int i = 1; i <= availableCheeses.size(); i++) {
             Cheese cheese = availableCheeses.get(i);
-            System.out.println(i + ") " + cheese);
+            System.out.println(i + ") " + cheese.name);
+        }
+    }
+
+    public void displayToppings() {
+        for (int i = 1; i <= availableToppings.size(); i++) {
+            String regTopping = availableToppings.get(i);
+            System.out.println(i + ") " + regTopping);
+        }
+    }
+
+    public void displaySide() {
+        for (int i = 1; i <= availableSides.size(); i++) {
+            String sides = availableSides.get(i);
+            System.out.println(i + ") " + sides);
+        }
+    }
+
+    public void displaySauce() {
+        for (int i = 1; i <= availableSauce.size(); i++) {
+            String sauces = availableSauce.get(i);
+            System.out.println(i + ") " + sauces);
         }
     }
 }

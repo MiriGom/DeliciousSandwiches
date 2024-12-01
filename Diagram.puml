@@ -1,0 +1,135 @@
+@startuml
+class com.pluralsight.Main {
++ {static} void main(String[])
+}
+
+interface com.pluralsight.Priceable {
+~ double getPrice()
+~ String toString()
+}
+
+class com.pluralsight.Chips {
+# String name
++ double getPrice()
++ String toString()
+}
+
+
+class com.pluralsight.Meat {
+# String name
+# Size size
++ double getPrice()
++ void setMeatSize(Size)
++ String toString()
+}
+
+
+abstract class com.pluralsight.StoreItem {
+}
+class com.pluralsight.PointOfSales {
+~ double totalCost
+~ {static} ArrayList<StoreItem> orderList
++ void displayOrder()
++ void addItemToOrder(StoreItem)
++ void printReceipt()
++ void cancelOrder()
+}
+
+
+class com.pluralsight.DeliStore {
+~ {static} HashMap<Integer,Chips> availableChips
+~ {static} HashMap<Integer,Drinks> availableDrinks
+~ {static} HashMap<Integer,Meat> availableMeats
+~ {static} HashMap<Integer,Cheese> availableCheeses
+~ {static} HashMap<Integer,String> availableSauce
+~ {static} HashMap<Integer,String> availableToppings
+~ {static} HashMap<Integer,String> availableBreads
+~ {static} HashMap<Integer,String> availableSides
++ void displayChips()
++ void displayDrinks()
++ void displayBreads()
++ void displayMeats()
++ void displayCheese()
++ void displayToppings()
++ void displaySide()
++ void displaySauce()
+}
+
+
+class com.pluralsight.Cheese {
+# String name
+# Size size
++ double getPrice()
++ void setCheeseSize(Size)
++ String toString()
+}
+
+
+class com.pluralsight.UserInterface {
+~ {static} PointOfSales pos
+~ {static} DeliStore deliStore
+~ {static} Scanner scan
++ void getHomePage()
++ void orderPrompt()
++ void orderChip()
++ void confirmAdd(StoreItem)
++ void checkout()
++ void orderDrink()
++ void displaySize()
++ void customizeSandwich()
+}
+
+
+enum com.pluralsight.Size {
++  SMALL
++  MEDIUM
++  LARGE
+}
+
+class com.pluralsight.Sandwich {
+- String bread
+- Size size
+- List<String> toppings
+- List<String> sauces
+- List<Meat> meats
+- List<Cheese> cheeseList
+- String side
+~ boolean isToasted
+~ boolean extraMeat
+~ boolean extraCheese
++ Size getSize()
++ void setBread(String)
++ void setSize(Size)
++ void setToppings(List<String>)
++ void setSauces(List<String>)
++ void setMeats(List<Meat>)
++ void setSide(String)
++ void setCheeseList(List<Cheese>)
++ void setToasted(boolean)
++ void isExtraMeat(boolean)
++ void setExtraCheese(boolean)
++ double getExtraMeatPrice()
++ double getExtraCheesePrice()
++ double getPrice()
++ String toString()
+}
+
+
+class com.pluralsight.Drinks {
+# String name
+# Size size
++ void setSize(Size)
++ double getPrice()
++ String toString()
+}
+
+
+
+
+com.pluralsight.StoreItem <|-- com.pluralsight.Chips
+com.pluralsight.StoreItem <|-- com.pluralsight.Meat
+com.pluralsight.Priceable <|.. com.pluralsight.StoreItem
+com.pluralsight.StoreItem <|-- com.pluralsight.Cheese
+com.pluralsight.StoreItem <|-- com.pluralsight.Sandwich
+com.pluralsight.StoreItem <|-- com.pluralsight.Drinks
+@enduml

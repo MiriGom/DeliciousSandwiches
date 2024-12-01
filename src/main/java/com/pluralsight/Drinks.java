@@ -3,12 +3,15 @@ package com.pluralsight;
 public class Drinks extends StoreItem {
     protected String name;
     protected Size size;
-    public Drinks(String name){
+
+    public Drinks(String name) {
         this.name = name;
     }
-    public void setSize(Size size){
+
+    public void setSize(Size size) {
         this.size = size;
     }
+
     @Override
     public double getPrice() {
         double price = 0;
@@ -30,8 +33,9 @@ public class Drinks extends StoreItem {
         }
         return 0;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("%s %s $%.2f", size, name, getPrice());
     }
 
